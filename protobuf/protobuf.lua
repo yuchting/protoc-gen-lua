@@ -29,17 +29,17 @@ local tostring = tostring
 local type = type
 
 local pb = require "pb"
-local wire_format = require "wire_format"
-local type_checkers = require "type_checkers"
-local encoder = require "encoder"
-local decoder = require "decoder"
-local listener_mod = require "listener"
-local containers = require "containers"
-local descriptor = require "descriptor"
+local wire_format = require "protobuf/wire_format"
+local type_checkers = require "protobuf/type_checkers"
+local encoder = require "protobuf/encoder"
+local decoder = require "protobuf/decoder"
+local listener_mod = require "protobuf/listener"
+local containers = require "protobuf/containers"
+local descriptor = require "protobuf/descriptor"
 local FieldDescriptor = descriptor.FieldDescriptor
-local text_format = require "text_format"
+local text_format = require "protobuf/text_format"
 
-module("protobuf")
+module("protobuf/protobuf")
 
 local function make_descriptor(name, descriptor, usable_key)
     local meta = {
@@ -140,7 +140,7 @@ local _VALUE_CHECKERS = {
     [FieldDescriptor.CPPTYPE_INT32] = type_checkers.Int32ValueChecker(),
     [FieldDescriptor.CPPTYPE_INT64] = type_checkers.Int32ValueChecker(),
     [FieldDescriptor.CPPTYPE_UINT32] = type_checkers.Uint32ValueChecker(),
-    [FieldDescriptor.CPPTYPE_UINT64] = type_checkers.Uint32ValueChecker(),
+    [FieldDescriptor.CPPTYPE_UINT64] = type_checkers.Uint64ValueChecker(),
     [FieldDescriptor.CPPTYPE_DOUBLE] = type_checkers.TypeChecker({number = true}),
     [FieldDescriptor.CPPTYPE_FLOAT] = type_checkers.TypeChecker({number = true}),
     [FieldDescriptor.CPPTYPE_BOOL] = type_checkers.TypeChecker({boolean = true, bool = true, int=true}),
@@ -541,13 +541,13 @@ local function _AddClearFieldMethod(message_descriptor, message_meta)
     message_meta._member.ClearField = function(self, field_name)
         if message_descriptor.fields_by_name[field_name] == nil then
             error('Protocol message has no "' .. field_name .. '" field.')
-        end
+		end
 
-        if self._fields[field] then
-            self._fields[field] = nil
-        end
-        message_meta._member._Modified(self)
-    end
+		if self._fields[field] then
+				self._fields[field] = nil
+		end
+		message_meta._member._Modified(self)
+	end
 end
 
 local function _AddClearExtensionMethod(message_meta)

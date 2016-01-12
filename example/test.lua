@@ -1,6 +1,3 @@
-package.path = package.path .. ';../protobuf/?.lua'
-package.cpath = package.cpath .. ';../protobuf/?.so'
-
 require 'person_pb'
 
 local person= person_pb.Person()
