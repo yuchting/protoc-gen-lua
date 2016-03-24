@@ -2,18 +2,17 @@
 local protobuf = require "protobuf/protobuf"
 module('Protol/person_pb')
 
-
-local PERSON = protobuf.Descriptor();
-local PERSON_ID_FIELD = protobuf.FieldDescriptor();
-local PERSON_NAME_FIELD = protobuf.FieldDescriptor();
-local PERSON_EMAIL_FIELD = protobuf.FieldDescriptor();
-local PHONE = protobuf.Descriptor();
-local PHONE_PHONE_TYPE = protobuf.EnumDescriptor();
-local PHONE_PHONE_TYPE_MOBILE_ENUM = protobuf.EnumValueDescriptor();
-local PHONE_PHONE_TYPE_HOME_ENUM = protobuf.EnumValueDescriptor();
-local PHONE_NUM_FIELD = protobuf.FieldDescriptor();
-local PHONE_TYPE_FIELD = protobuf.FieldDescriptor();
-local PHONE_PHONES_FIELD = protobuf.FieldDescriptor();
+PERSON = protobuf.Descriptor();
+PERSON_ID_FIELD = protobuf.FieldDescriptor();
+PERSON_NAME_FIELD = protobuf.FieldDescriptor();
+PERSON_EMAIL_FIELD = protobuf.FieldDescriptor();
+PHONE = protobuf.Descriptor();
+PHONE_PHONE_TYPE = protobuf.EnumDescriptor();
+PHONE_PHONE_TYPE_MOBILE_ENUM = protobuf.EnumValueDescriptor();
+PHONE_PHONE_TYPE_HOME_ENUM = protobuf.EnumValueDescriptor();
+PHONE_NUM_FIELD = protobuf.FieldDescriptor();
+PHONE_TYPE_FIELD = protobuf.FieldDescriptor();
+PHONE_PHONES_FIELD = protobuf.FieldDescriptor();
 
 PERSON_ID_FIELD.name = "id"
 PERSON_ID_FIELD.full_name = ".Person.id"

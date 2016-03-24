@@ -1,1 +1,1 @@
-@python C:/protoc-gen-lua-master/protoc-gen-lua-master/plugin/protoc-gen-lua
+@python %~dp0protoc-gen-lua
