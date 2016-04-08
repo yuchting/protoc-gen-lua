@@ -62,3 +62,4 @@ The API of this library is similar the protobuf library for python.
 For a more complete example,  read the [python documentation](http://code.google.com/apis/protocolbuffers/docs/pythontutorial.html).
 
 默认放在C盘目录C:\protoc-gen-lua-master\protoc-gen-lua-master， 生成lua放在 Lua/Protol 目录
+使用环境: Python 2.7.8 + protobuf-2.5.0
