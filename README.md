@@ -6,12 +6,15 @@ protoc-gen-lua
 2. 支持int64, uint64 <br>
 3. 解包的协议对象支持 tostring 操作 <br>
 编译环境: <br>
-Python2.7.8<br>
+1. Python2.7.8<br>
 https://www.python.org/downloads/release/python-278/ <br>
-编译好的protobuf2.5下载地址<br>
+2. 编译好的protobuf2.5下载地址<br>
 http://pan.baidu.com/s/1slEUfXb<br>
+注意:<br>
+1. 嵌套的proto 必须在当前 proto 之前声明<br>
+2. 安装python后, 需要在protobuf2.5 的python 目录下执行命令 Python setup.py install<br>
 **
-**注意嵌套的proto 必须在当前 proto 之前声明**
+
 
 Google's Protocol Buffers project, ported to Lua
 
