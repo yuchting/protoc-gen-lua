@@ -12,8 +12,7 @@ https://www.python.org/downloads/release/python-278/ <br>
 http://pan.baidu.com/s/1slEUfXb<br>
 注意:<br>
 1. 嵌套的proto 必须在当前 proto 之前声明<br>
-2. 安装python后, 需要在protobuf2.5 的python 目录下执行命令 Python setup.py install<br>
-**
+2. 安装python后, 需要在protobuf2.5 的python 目录下执行命令 Python setup.py install <br>**
 
 
 Google's Protocol Buffers project, ported to Lua
