@@ -1,5 +1,17 @@
 protoc-gen-lua
 ==============
+**默认放在C盘目录C:\protoc-gen-lua-master\protoc-gen-lua-master， 生成lua放在 Lua/Protol 目录<br>
+修改说明：<br>
+1. 支持嵌套类（必需在使用类之前声明）<br>
+2. 支持int64, uint64 <br>
+3. 解包的协议对象支持 tostring 操作 <br>
+编译环境: <br>
+Python2.7.8<br>
+https://www.python.org/downloads/release/python-278/ <br>
+编译好的protobuf2.5下载地址<br>
+http://pan.baidu.com/s/1slEUfXb<br>
+**
+**注意嵌套的proto 必须在当前 proto 之前声明**
 
 Google's Protocol Buffers project, ported to Lua
 
@@ -61,7 +73,4 @@ print(msg.id, msg.name, msg.email)
 The API of this library is similar the protobuf library for python.
 For a more complete example,  read the [python documentation](http://code.google.com/apis/protocolbuffers/docs/pythontutorial.html).
 
-**默认放在C盘目录C:\protoc-gen-lua-master\protoc-gen-lua-master， 生成lua放在 Lua/Protol 目录
-使用环境: Python 2.7.8 + protobuf-2.5.0**<br>
 
-**注意嵌套的proto 必须在当前 proto 之前声明**
