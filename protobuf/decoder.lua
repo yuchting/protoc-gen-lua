@@ -23,8 +23,8 @@ local error = error
 local print = print
 
 local pb = require "pb"
-local encoder = require "protobuf/encoder"
-local wire_format = require "protobuf/wire_format"
+local encoder = require "protobuf.encoder"
+local wire_format = require "protobuf.wire_format"
 module "protobuf.decoder"
 
 local _DecodeVarint = pb.varint_decoder
