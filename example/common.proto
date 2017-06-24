@@ -4,9 +4,3 @@ message Header
   required int32 cmd = 1;
   required int32 seq = 2;
 }
-
-enum Sex
-{
-	FeMale = 0;
-	Male = 1;
-}

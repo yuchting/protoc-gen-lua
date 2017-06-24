@@ -2,22 +2,10 @@
 local protobuf = require "protobuf.protobuf"
 module('Protol.common_pb')
 
-SEX = protobuf.EnumDescriptor();
-SEX_FEMALE_ENUM = protobuf.EnumValueDescriptor();
-SEX_MALE_ENUM = protobuf.EnumValueDescriptor();
 HEADER = protobuf.Descriptor();
 HEADER_CMD_FIELD = protobuf.FieldDescriptor();
 HEADER_SEQ_FIELD = protobuf.FieldDescriptor();
 
-SEX_FEMALE_ENUM.name = "FeMale"
-SEX_FEMALE_ENUM.index = 0
-SEX_FEMALE_ENUM.number = 0
-SEX_MALE_ENUM.name = "Male"
-SEX_MALE_ENUM.index = 1
-SEX_MALE_ENUM.number = 1
-SEX.name = "Sex"
-SEX.full_name = ".Sex"
-SEX.values = {SEX_FEMALE_ENUM,SEX_MALE_ENUM}
 HEADER_CMD_FIELD.name = "cmd"
 HEADER_CMD_FIELD.full_name = ".Header.cmd"
 HEADER_CMD_FIELD.number = 1
@@ -46,7 +34,5 @@ HEADER.fields = {HEADER_CMD_FIELD, HEADER_SEQ_FIELD}
 HEADER.is_extendable = false
 HEADER.extensions = {}
 
-FeMale = 0
 Header = protobuf.Message(HEADER)
-Male = 1
 
