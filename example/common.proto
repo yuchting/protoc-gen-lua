@@ -5,8 +5,8 @@ message Header
   required int32 seq = 2;
 }
 
-//enum Sex
-//{
-//	FeMale = 0;
-//	Male = 1;
-//}
+enum Sex
+{
+	FeMale = 0;
+	Male = 1;
+}
