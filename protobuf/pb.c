@@ -691,7 +691,44 @@ static int iostring_clear(lua_State* L)
     return 0;
 }
 
-static const struct luaL_reg _pb [] = 
+static int varint_size(lua_State* L) 
+{
+    uint64_t value = _ulong(L, 1);
+
+    if (value <= 0x7f) lua_pushnumber(L, 1);
+    else if (value <= 0x3fff) lua_pushnumber(L, 2);
+    else if (value <= 0x1fffff) lua_pushnumber(L, 3);
+    else if (value <= 0xfffffff) lua_pushnumber(L, 4);
+    else if (value <= 0x7ffffffff) lua_pushnumber(L, 5);
+    else if (value <= 0x3ffffffffff) lua_pushnumber(L, 6);
+    else if (value <= 0x1ffffffffffff) lua_pushnumber(L, 7);
+    else if (value <= 0xffffffffffffff) lua_pushnumber(L, 8);
+    else if (value <= 0x7fffffffffffffff) lua_pushnumber(L, 9);
+    else lua_pushnumber(L, 10);    
+
+    return 1;
+}
+
+static int signed_varint_size(lua_State* L) 
+{
+    int64_t value = _long(L, 1);
+
+    if (value < 0) lua_pushnumber(L, 10);
+    else if (value <= 0x7f) lua_pushnumber(L, 1);
+    else if (value <= 0x3fff) lua_pushnumber(L, 2);
+    else if (value <= 0x1fffff) lua_pushnumber(L, 3);
+    else if (value <= 0xfffffff) lua_pushnumber(L, 4);
+    else if (value <= 0x7ffffffff) lua_pushnumber(L, 5);
+    else if (value <= 0x3ffffffffff) lua_pushnumber(L, 6);
+    else if (value <= 0x1ffffffffffff) lua_pushnumber(L, 7);
+    else if (value <= 0xffffffffffffff) lua_pushnumber(L, 8);
+    else if (value <= 0x7fffffffffffffff) lua_pushnumber(L, 9);
+    else lua_pushnumber(L, 10);    
+
+    return 1;
+}
+
+static const struct luaL_Reg _pb [] = 
 {
     {"varint_encoder", varint_encoder},
     {"varint_encoder64", varint_encoder64},    
@@ -709,10 +746,12 @@ static const struct luaL_reg _pb [] =
     {"zig_zag_decode64", zig_zag_decode64},
     {"zig_zag_encode64", zig_zag_encode64},
     {"new_iostring", iostring_new},
+    {"varint_size", varint_size},
+    {"signed_varint_size", signed_varint_size},
     {NULL, NULL}
 };
 
-static const struct luaL_reg _c_iostring_m [] = 
+static const struct luaL_Reg _c_iostring_m [] = 
 {
     {"__tostring", iostring_str},
     {"__len", iostring_len},
