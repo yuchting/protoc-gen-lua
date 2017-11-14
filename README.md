@@ -61,6 +61,8 @@ require "person_pb"
 
 -- Serialize Example
 local msg = person_pb.Person()
+msg.header.cmd = 1
+msg.header.seq = 2
 msg.id = 100
 msg.name = "foo"
 msg.email = "bar"
