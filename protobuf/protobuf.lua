@@ -739,6 +739,26 @@ local function _AddMergeFromStringMethod(message_descriptor, message_meta)
         message_meta._member.Clear(self)
         merge_from_string(self, serialized)
     end
+
+	local function _ToNormalTable(msg,fields)
+		if msg then
+			local result = {}
+			for _,k in pairs(fields) do
+				if k.message_type then
+					result[k.name] = _ToNormalTable(msg[k.name],k.message_type.fields)
+				else
+					result[k.name] = msg[k.name]
+				end
+			end
+			return result
+		else
+			return nil
+		end
+	end
+
+	message_meta._member.ConvertToNormalTable = function(self)
+		return _ToNormalTable(self,message_descriptor.fields)
+	end
 end
 
 local function _AddIsInitializedMethod(message_descriptor, message_meta)
@@ -951,7 +971,7 @@ local function Message(descriptor)
     _AddPrivateHelperMethods(message_meta)
 
     message_meta.__index = property_getter(message_meta)
-    message_meta.__newindex = property_setter(message_meta) 
+    message_meta.__newindex = property_setter(message_meta)
 
     return ns 
 end
