@@ -72,6 +72,17 @@ local pb_data = msg:SerializeToString()
 local msg = person_pb.Person()
 msg:ParseFromString(pb_data)
 print(msg.id, msg.name, msg.email)
+
+-- msg is a compelex lua table with many special processing
+-- you can use ConvertToNormalTable to change it to simple/normal lua table
+local msgNormalTable = msg:ConvertToNormalTable()
+
+-- you can test the optional field
+print(msg:HasField("age")) -- false
+
+-- you can clear all field
+msg:Clear()
+
 ```
 
 The API of this library is similar the protobuf library for python.
