@@ -332,7 +332,7 @@ def code_gen_field(index, field_desc, env):
     if field_desc.HasField('type_name'):
         type_name = env.get_msg_name(field_desc.type_name)
         if field_desc.type == FDP.TYPE_MESSAGE:
-            context('.message_type = %s\n' % type_name)
+            context('.message_type = %s\n' % (type_name.replace("/","_")))
         else:
             context('.enum_type = %s\n' % type_name)
 
@@ -425,8 +425,10 @@ def code_gen_file(proto_file, env, is_gen):
         write_header(lua)
         lua('local protobuf = require "protobuf.protobuf"\n')
         for i in includes:
-            lua('local %s_pb = require("Protol.%s_pb")\n' % (i, i))
-        lua("module('Protol.%s_pb')" % env.filename)
+            local_name = i.replace("/","_")
+            lua('local %s_pb = require("%s_pb")\n' % (local_name, i))
+			
+        lua("module('%s_pb')" % env.filename.replace("/","."))
 
         lua('\n\n')
         map(lua, env.descriptor)
