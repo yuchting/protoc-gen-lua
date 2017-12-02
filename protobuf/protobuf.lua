@@ -743,11 +743,23 @@ local function _AddMergeFromStringMethod(message_descriptor, message_meta)
 	local function _ToNormalTable(msg,fields)
 		if msg then
 			local result = {}
-			for _,k in pairs(fields) do
-				if k.message_type then
-					result[k.name] = _ToNormalTable(msg[k.name],k.message_type.fields)
-				else
-					result[k.name] = msg[k.name]
+			if msg.add and type(msg.add) == "function" then -- is a repeated fields
+				for i,v in ipairs(msg) do
+					result[i] = _ToNormalTable(v,msg._message_descriptor.fields)
+				end
+			else
+				for _,v in pairs(fields) do
+					if v.label == FieldDescriptor.LABEL_REPEATED
+					or v.label == FieldDescriptor.LABEL_REQUIRED
+					or msg:HasField(v.name) then
+						if v.message_type then
+							result[v.name] = _ToNormalTable(msg[v.name],v.message_type.fields)
+						else
+							result[v.name] = msg[v.name]
+						end
+					else
+						result[v.name] = nil
+					end
 				end
 			end
 			return result
