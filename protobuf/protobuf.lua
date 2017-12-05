@@ -39,6 +39,7 @@ local descriptor = require "protobuf.descriptor"
 local FieldDescriptor = descriptor.FieldDescriptor
 local text_format = require "protobuf.text_format"
 
+
 module("protobuf.protobuf")
 
 local function make_descriptor(name, descriptor, usable_key)
@@ -740,22 +741,36 @@ local function _AddMergeFromStringMethod(message_descriptor, message_meta)
         merge_from_string(self, serialized)
     end
 
-	local function _ToNormalTable(msg,fields)
+	local function _ToNormalTable(msg,fields,repeated)
 		if msg then
 			local result = {}
-			if msg.add and type(msg.add) == "function" then -- is a repeated fields
+			if repeated then
+				-- repeated MessageData msgList
 				for i,v in ipairs(msg) do
 					result[i] = _ToNormalTable(v,msg._message_descriptor.fields)
 				end
 			else
 				for _,v in pairs(fields) do
+
 					if v.label == FieldDescriptor.LABEL_REPEATED
 					or v.label == FieldDescriptor.LABEL_REQUIRED
 					or msg:HasField(v.name) then
+
 						if v.message_type then
-							result[v.name] = _ToNormalTable(msg[v.name],v.message_type.fields)
+							-- repeated MessageData msgList
+							result[v.name] = _ToNormalTable(msg[v.name],v.message_type.fields,v.label == FieldDescriptor.LABEL_REPEATED)
 						else
-							result[v.name] = msg[v.name]
+							if v.label == FieldDescriptor.LABEL_REPEATED then
+								-- repeated int32 int32List
+								-- repeated float floatList
+								local t_list = msg[v.name]
+								result[v.name] = {}
+								for ii,vv in ipairs(t_list) do
+									result[v.name][ii] = vv
+								end
+							else
+								result[v.name] = msg[v.name]
+							end
 						end
 					else
 						result[v.name] = nil
